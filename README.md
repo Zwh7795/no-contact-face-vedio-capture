@@ -1,2 +1,18 @@
 # no-contact-face-vedio-capture
-Assist staff in using cameras to collect video information of facial features. This software is a non-contact physiological index facial signal collection software developed by QT. Mainly returns waveform files, corresponding labels for blood pressure and heart rate, as well as the medical history of the collected personnel.
+助力工作人员利用摄像头采集人脸面部的视频信息，本软件是由QT编写的非接触式生理指标人脸面部信号收集软件。主要返回波形文件，对应血压、心率的标签以及被采集人员的病史。
+
+IPPG_Capure_exe：是通过windows下QT编写的人脸原始信号数据集的采集界面，已经封装好的，可以跨平台应用
+
+QT：是IPPG_Capure_exe的原始代码
+
+Phy_Bp_monitor：是整个生理监测系统的UI界面，可以实现windows、linux、arm64的部署，非常完整，涉及的技术也非常多
+
+这里主要是QT UI界面一些功能的实现说明
+
+1、由于相机比较便宜，不支持多线程，所以编程时在多线程时已经尽可能保证只有一个线程获取图片
+
+2、由于角度和移除摄像头范围导致检测不到人脸，会导致波形不是连贯的，在相机只有30帧的情况下，多次检测不到人脸势必会丧失一些细节信息，所以要尽可能注视摄像头
+
+3、界面的功能比较复杂，没有把暂停和停止分开写，所以请注意如果长时间离开，下次测试并不会重新测试，依然会接着上次的结果测试，但波形的点是在更新的，只需要等几秒就会把之前的波形替换掉，后面有时间了，需要针对这个问题做一些修改
+
+4、因为加载模型和全局变量需要花费时间，所以打开程序需要20s左右的时间，这也就是开机时间了
